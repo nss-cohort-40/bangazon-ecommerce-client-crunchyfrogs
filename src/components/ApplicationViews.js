@@ -20,7 +20,7 @@ const ApplicationViews = () => {
         })
             .then(response => response.json())
             .then((customer) => {
-                console.log(customer)
+                setCustomer(customer[0])
             })
     }
 
@@ -46,8 +46,8 @@ const ApplicationViews = () => {
                 }}
             />
             <Route
-                path="/account/edit" render={props => {
-                    return <AccountForm customer={customer} setCustomer={setCustomer} {...props}/>
+                exact path="/account/edit" render={props => {
+                    return <AccountForm customer={customer} setCustomer={setCustomer} {...props} />
                 }}
             />
         </>

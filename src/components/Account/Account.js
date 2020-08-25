@@ -4,20 +4,24 @@ import OrderHistory from './OrderHistory';
 
 const Account = props => {
     const [orders, setOrders] = useState([])
-    const [paymentOptions, setPaymentOptions] = useState([])
+    // const [paymentOptions, setPaymentOptions] = useState([])
+
+    const handleEditBtn = e => {
+        props.history.push('/account/edit')
+    }
 
     return (
         <div className="account_view">
             <div className="account_info">
-                <p>{props.customer.firstName}</p>
-                <p>{props.customer.lastName}</p>
+                {props.customer.user ? <p>{props.customer.user.first_name}</p> : null}
+                {props.customer.user ? <p>{props.customer.user.last_name}</p> : null}
                 <p>{props.customer.address}</p>
-                <p>{props.customer.phoneNumber}</p>
+                <p>{props.customer.phone_number}</p>
                 {/* <PaymentOptions paymentOptions={paymentOptions} /> */}
                 <OrderHistory orders={orders} />
             </div>
             <div className="account_settings">
-                <button className="account_edit_btn" onClick={props.history.push('/account/edit')}>Edit Account</button>
+                <button className="account_edit_btn" onClick={handleEditBtn}>Edit Account</button>
             </div>
         </div>
     )
