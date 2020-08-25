@@ -1,10 +1,11 @@
-import React, { useRef } from "react"
-
+import React, { useRef, useState } from "react"
 
 const AddPayment = props => {
     const merchantName = useRef()
     const accountNumber = useRef()
     const expirationDate = useRef()
+    const [ toggleModal, setToggleModal ] = useState(false)
+    let [ paymentButton, setPaymentButton ] = useState("Add a payment type")
 
 
     const handleAddPayment = (evt) => {
@@ -16,7 +17,7 @@ const AddPayment = props => {
             expiration_date: expirationDate.current.value
         }
 
-        console.log(paymentType)
+
         fetch(`http://localhost:8000/payment_type`, {
             "method": "POST",
             "headers": {
@@ -28,21 +29,34 @@ const AddPayment = props => {
         })
     }
 
+    const handleModal = () => {
+        if (toggleModal) {
+            document.getElementById("add-payment-type-dialog").close()
+            setPaymentButton("Add a payment type")
+        } else {
+            document.getElementById("add-payment-type-dialog").show()
+            setPaymentButton("cancel")
+        }
+        setToggleModal(!toggleModal)
+    }
+   
+
     return (
         <>
-            <h1>Add a payment type</h1>
-            <form onSubmit={handleAddPayment}>
-                <input id="merchant_name" ref={merchantName}></input>
-                <label for="merchant_name">Merchant</label>
-                <input id="account_number" ref={accountNumber}></input>
-                <label for="account_number">Account Number</label>
-                <input id="expiration_date" type="date" ref={expirationDate}></input>
-                <label for="expiration_date">Expiration Date</label>
-                <button type="submit">Add Payment Type</button>
-            </form>
+            <button onClick={handleModal}>{paymentButton}</button>
+            <dialog id="add-payment-type-dialog">
+                <form onSubmit={handleAddPayment}>
+                    <label for="merchant_name">Merchant</label>
+                    <input id="merchant_name" ref={merchantName}></input>
+                    <label for="account_number">Account Number</label>
+                    <input id="account_number" ref={accountNumber}></input>
+                    <label for="expiration_date">Expiration Date</label>
+                    <input id="expiration_date" type="date" ref={expirationDate}></input>
+                    <button type="submit" onClick={handleModal}>Add Payment Type</button>
+                </form>
+            </dialog>
         </>
     )
 }
-
 
 export default AddPayment
