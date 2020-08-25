@@ -6,6 +6,7 @@ import Register from "./auth/Register";
 import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 
+
 const ApplicationViews = () => {
     const [customer, setCustomer] = useState({})
 
