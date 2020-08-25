@@ -24,8 +24,8 @@ const Register = props => {
             "last_name": lastName.current.value,
             "email": email.current.value,
             "password": password.current.value,
-            "address" = address.current.value,
-            "phone_number" = phoneNumber.current.value
+            "address": address.current.value,
+            "phone_number": phoneNumber.current.value
         }
 
         register(newUser).then(() => {
@@ -38,7 +38,7 @@ const Register = props => {
     return (
         <main style={{ textAlign: "center" }}>
             <form className="form--login" onSubmit={handleRegister}>
-                <h1 className="h3 mb-3 font-weight-normal">Register to use Saturday in the Park</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Register to use Bangazon</h1>
                 <fieldset>
                     <label htmlFor="userName"> Username </label>
                     <input ref={userName} type="text"
