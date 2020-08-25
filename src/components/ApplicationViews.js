@@ -19,6 +19,11 @@ const ApplicationViews = () => {
                 return <Login />
             }}
         />
+        <Route
+            exact path="/payment_type" render={props => {
+                return <PaymentType />
+            }}
+        />
     </>)
 }
 
