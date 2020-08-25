@@ -1,9 +1,6 @@
 import { Route, Redirect } from 'react-router-dom';
 import { BrowserRouter as Router } from "react-router-dom"
 import React from 'react';
-
-
-// import 
 import Login from "./auth/Login"
 import Register from "./auth/Register"
 
