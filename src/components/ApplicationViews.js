@@ -13,7 +13,7 @@ const ApplicationViews = () => {
         />
         <Route
             exact path="/login" render={props => {
-                return <Login />
+                return <Login {...props}/>
             }}
         />
     </>)
