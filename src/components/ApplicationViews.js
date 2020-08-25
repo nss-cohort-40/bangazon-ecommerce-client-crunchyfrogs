@@ -6,6 +6,7 @@ import React from 'react';
 // import 
 import Login from "./auth/Login"
 import Register from "./auth/Register"
+import PaymentType from './paymenttype/AddPaymentType'
 
 const ApplicationViews = () => {
     return (<>
