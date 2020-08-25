@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 
 const AccountForm = props => {
+
     const handleFieldChange = e => {
-        const updatedInfo = [...props.customer]
-        updatedInfo[e.target.name] = e.target.value
+        const updatedInfo = {...props.customer}
+        if (e.target.name === "first_name" || e.target.name === "last_name") {
+            updatedInfo.user.[e.target.name] = e.target.value
+        }
+        else {
+            updatedInfo[e.target.name] = e.target.value
+        }
         props.setCustomer(updatedInfo)
     }
 
@@ -26,20 +32,20 @@ const AccountForm = props => {
     return (
         <form className="account_form" onSubmit={editAccount}>
             <fieldset>
-                <label htmlFor="firstName">First Name</label>
-                <input className="account_input" name="firstName" placeholder="First Name" onChange={handleFieldChange} />
+                <label htmlFor="first_name">First Name</label>
+                <input className="account_input" name="first_name" placeholder="First Name" value={props.customer.user.first_name} onChange={handleFieldChange} />
             </fieldset>
             <fieldset>
-                <label htmlFor="lastName">Last Name</label>
-                <input className="account_input" name="lastName" placeholder="Last Name" />
+                <label htmlFor="last_name">Last Name</label>
+                <input className="account_input" name="last_name" placeholder="Last Name" value={props.customer.user.last_name} onChange={handleFieldChange} />
             </fieldset>
             <fieldset>
-                <label htmlFor="phoneNumber">Phone Number</label>
-                <input className="account_input" name="phoneNumber" placeholder="Phone Number" />
+                <label htmlFor="phone_number">Phone Number</label>
+                <input className="account_input" name="phone_number" placeholder="Phone Number" value={props.customer.phone_number} onChange={handleFieldChange} />
             </fieldset>
             <fieldset>
                 <label htmlFor="address">Address</label>
-                <input className="account_input" name="address" placeholder="Address" />
+                <input className="account_input" name="address" placeholder="Address" value={props.customer.address} onChange={handleFieldChange} />
             </fieldset>
             <button type="submit">Submit</button>
         </form>
