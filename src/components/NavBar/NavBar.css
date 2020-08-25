@@ -1,0 +1,26 @@
+.nav_container {
+    margin: unset;
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 1.2em;
+    background-color: #011627;
+}
+
+.nav_link {
+    color: #fdfffc;
+    text-decoration: none;
+    padding: 0 .5em 0 .5em;
+}
+
+.nav_leftside {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 0 0 content;
+}
+
+.nav_rightside {
+    display: flex;
+    justify-content: space-evenly;
+    flex: 0 0 content;
+}
