@@ -5,7 +5,7 @@ const AccountForm = props => {
     const handleFieldChange = e => {
         const updatedInfo = {...props.customer}
         if (e.target.name === "first_name" || e.target.name === "last_name") {
-            updatedInfo.user.[e.target.name] = e.target.value
+            updatedInfo.user[e.target.name] = e.target.value
         }
         else {
             updatedInfo[e.target.name] = e.target.value
@@ -22,10 +22,9 @@ const AccountForm = props => {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
             },
-            "body": JSON.stringify({
-                "customer": props.customer
-            })
+            "body": JSON.stringify(props.customer)
         })
+        // fetch(`http://localhost:8000/user/${props.customer.user.id}`)
             .then(props.history.push('/account'))
     }
 
