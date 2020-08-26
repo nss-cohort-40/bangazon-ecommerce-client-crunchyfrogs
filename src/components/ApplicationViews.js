@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import React from 'react';
 import Login from "./auth/Login"
 import Register from "./auth/Register"
+import ProductCategories from './productcategories/ProductCategories'
 
 
 const ApplicationViews = () => {
