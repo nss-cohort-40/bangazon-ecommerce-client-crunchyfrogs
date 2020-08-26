@@ -37,7 +37,7 @@ const Login = props => {
                     <label htmlFor="inputEmail"> Username </label>
                     <input ref={username} type="username"
                         className="form-control"
-                        placeholder="Email address"
+                        placeholder="Username"
                         required autoFocus />
                 </fieldset>
                 <fieldset>
