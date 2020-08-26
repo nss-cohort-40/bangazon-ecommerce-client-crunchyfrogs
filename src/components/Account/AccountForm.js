@@ -15,6 +15,9 @@ const AccountForm = props => {
 
     const editAccount = e => {
         e.preventDefault()
+        let userCustomer = {...props.customer.user}
+        userCustomer["address"] = props.customer.address
+        userCustomer["phone_number"] = props.customer.phone_number    
         fetch(`http://localhost:8000/customer/${props.customer.id}`, {
             "method": "PUT",
             "headers": {
@@ -22,9 +25,8 @@ const AccountForm = props => {
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
             },
-            "body": JSON.stringify(props.customer)
+            "body": JSON.stringify(userCustomer)
         })
-        // fetch(`http://localhost:8000/user/${props.customer.user.id}`)
             .then(props.history.push('/account'))
     }
 
