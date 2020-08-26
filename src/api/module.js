@@ -14,5 +14,8 @@ export default {
     },
     getProductTypes() {
         return fetch(`${remoteURL}/producttypes`).then(data => data.json())
+    },
+    getProducts() {
+        return fetch(`${remoteURL}/product`).then(data => data.json())
     }
 }
