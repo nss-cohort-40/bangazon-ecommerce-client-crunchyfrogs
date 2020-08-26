@@ -47,7 +47,7 @@ const ApplicationViews = () => {
             />
             <Route
                 exact path="/account/edit" render={props => {
-                    return <AccountForm customer={customer} setCustomer={setCustomer} {...props} />
+                    return <AccountForm customer={customer} getCustomer={getCustomer} setCustomer={setCustomer} {...props} />
                 }}
             />
         </>

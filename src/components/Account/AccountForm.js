@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AccountForm = props => {
 
@@ -27,7 +27,10 @@ const AccountForm = props => {
             },
             "body": JSON.stringify(userCustomer)
         })
-            .then(props.history.push('/account'))
+            .then(() => {
+                props.getCustomer()
+                props.history.push('/account')
+            })
     }
 
     return (
