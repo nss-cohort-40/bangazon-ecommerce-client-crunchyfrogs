@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { useState, useEffect } from "react"
 
 
 const ProductDetails = props => {
@@ -15,12 +15,24 @@ const ProductDetails = props => {
             }
         })
         .then(response => response.json())
-        .then(products => setProduct(products))
+        .then(products => {
+            console.log(products)
+            setProduct(products)
+        })
     }
+
+    useEffect(() => {
+        getProduct()
+        console.log(product)
+    }, [])
 
     return (
         <div>
-
+            <p>Title: {product.title}</p>
+            <p>Description: {product.description}</p>
+            <p>Price per unit: {product.price}</p>
+            <p>Quantity available: {product.quantity}</p>
+            <button>Add to Cart</button>
         </div>
     )
 }
