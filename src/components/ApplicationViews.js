@@ -5,6 +5,7 @@ import Login from "./auth/Login"
 import Register from "./auth/Register"
 import ProductForm from "./product/ProductForm"
 import ProductList from './product/ProductList'
+import ProductCategories from './productcategories/ProductCategories'
 
 
 const ApplicationViews = () => {
@@ -16,7 +17,7 @@ const ApplicationViews = () => {
         />
         <Route
             exact path="/login" render={props => {
-                return <Login {...props}/>
+                return <Login {...props} />
             }}
         />
         <Route
