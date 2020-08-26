@@ -36,9 +36,9 @@ const ProductForm = (props) => {
             product_type_id: productTypeId.product_type_id
         }
         Api.postNewProduct(product).then(e => {
-            props.history.push("/")
-        })
 
+        })
+        props.history.push("/products")
     }
 
     useEffect(getProductTypes, [])

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Api from '../../api/module'
-
+import { Link } from 'react-router-dom'
 import ProductCard from './ProductCard'
 
 const ProductList = props => {
@@ -25,7 +25,7 @@ const ProductList = props => {
 
     const getProducts = () => {
         Api.getProducts().then(products => {
-            const filteredProductsByUser = products.filter(product => product.customer.url.split("/customer/")[1] === customer.id)
+            const filteredProductsByUser = products.filter(product => product.customer.url.split("/customer/")[1] == customer.id)
             setProducts(filteredProductsByUser)
         })
     }
@@ -35,6 +35,12 @@ const ProductList = props => {
 
     return (
         <>
+            <Link to={`addproduct/`}>
+                <button >
+                    Sell Product
+            </button>
+            </Link>
+
             {products.map(product => <ProductCard key={product.id} product={product} {...props} />)}
         </>
     )
