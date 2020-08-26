@@ -18,11 +18,6 @@ const ApplicationViews = () => {
                 return <Login {...props}/>
             }}
         />
-        <Route
-            exact path="/product_categories" render={props => {
-                return <ProductCategories />
-            }}
-        />
     </>)
 }
 

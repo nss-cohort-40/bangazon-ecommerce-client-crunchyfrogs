@@ -41,7 +41,6 @@ const ProductCategories = props => {
     useEffect(() => {
         getCategories()
         getProducts()
-        console.log(products)
     }, [])
 
     return (
