@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import OrderHistory from './OrderHistory';
 // import PaymentOptions from './PaymentOptions';
+import AddPaymentType from '../paymenttype/AddPaymentType';
 
 const Account = props => {
     const [orders, setOrders] = useState([])
@@ -18,6 +19,7 @@ const Account = props => {
                 <p>{props.customer.address}</p>
                 <p>{props.customer.phone_number}</p>
                 {/* <PaymentOptions paymentOptions={paymentOptions} /> */}
+                <AddPaymentType />
                 <OrderHistory orders={orders} />
             </div>
             <div className="account_settings">

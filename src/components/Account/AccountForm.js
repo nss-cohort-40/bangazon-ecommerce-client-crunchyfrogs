@@ -28,11 +28,14 @@ const AccountForm = props => {
             "body": JSON.stringify(userCustomer)
         })
             .then(() => {
-                props.getCustomer()
                 props.history.push('/account')
             })
     }
 
+    useEffect(() => {
+        props.getCustomer()
+    }, [])
+    
     return (
         <form className="account_form" onSubmit={editAccount}>
             <fieldset>

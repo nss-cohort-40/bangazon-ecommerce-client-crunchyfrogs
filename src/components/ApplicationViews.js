@@ -8,7 +8,7 @@ import AccountForm from './Account/AccountForm';
 
 
 const ApplicationViews = () => {
-    const [customer, setCustomer] = useState({})
+    const [customer, setCustomer] = useState({user: {}})
 
     const getCustomer = () => {
         fetch("http://localhost:8000/customer", {
