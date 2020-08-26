@@ -27,12 +27,12 @@ const ProductForm = (props) => {
 
     const onSubmitHandler = () => {
         const product = {
-            title: title,
-            price: price,
-            description: description,
-            quantity: quantity,
-            location: location,
-            imagePath: imagePath,
+            title: title.current.value,
+            price: price.current.value,
+            description: description.current.value,
+            quantity: quantity.current.value,
+            location: location.current.value,
+            image_path: imagePath.current.value,
             product_type_id: productTypeId.product_type_id
         }
         Api.postNewProduct(product).then(e => {
@@ -46,7 +46,7 @@ const ProductForm = (props) => {
     return (
         <main style={{ textAlign: "center" }}>
             <form className="form--login">
-                <h1 className="h3 mb-3 font-weight-normal">Sell a Product!</h1>
+                <h1 className="h3 mb-3 font-weight-normal">Sell Product!</h1>
                 <fieldset>
                     <label htmlFor="title"> title </label>
                     <input ref={title} type="text"
@@ -102,7 +102,7 @@ const ProductForm = (props) => {
                 </fieldset>
                 <fieldset>
                     <button onClick={onSubmitHandler}>
-                        Create Sell Offer
+                        Sell Product
                     </button>
                 </fieldset>
             </form>

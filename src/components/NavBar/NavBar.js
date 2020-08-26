@@ -12,7 +12,7 @@ const NavBar = props => {
                         <Link className="nav_link" to="/">Home</Link>
                     </li>
                     <li>
-                        <Link className="nav_link" to="/">My Products</Link>
+                        <Link className="nav_link" to="/products">My Products</Link>
                     </li>
                     <li>
                         <Link className="nav_link" to="/">My Favorites</Link>

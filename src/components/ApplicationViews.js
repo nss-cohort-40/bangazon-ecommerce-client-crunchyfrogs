@@ -5,6 +5,7 @@ import Login from "./auth/Login"
 import Register from "./auth/Register"
 import ProductForm from "./product/ProductForm"
 
+
 const ApplicationViews = () => {
     return (<>
         <Route
