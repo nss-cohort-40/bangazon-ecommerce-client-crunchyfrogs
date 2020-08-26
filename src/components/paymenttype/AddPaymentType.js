@@ -18,7 +18,7 @@ const AddPayment = props => {
         }
 
 
-        fetch(`http://localhost:8000/payment_type`, {
+        fetch(`http://localhost:8000/paymenttype`, {
             "method": "POST",
             "headers": {
                 "Accept": "application/json",

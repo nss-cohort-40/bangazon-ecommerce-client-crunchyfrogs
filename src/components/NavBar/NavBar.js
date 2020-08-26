@@ -3,6 +3,7 @@ import { Link, Route, Redirect } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import './NavBar.css';
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth"
+import ProductCategories from '../productcategories/ProductCategories'
 
 const NavBar = props => {
 
@@ -31,6 +32,9 @@ const NavBar = props => {
                                 </li>
                                 <li>
                                     <Link className="nav_link" to="/account">My Account</Link>
+                                </li>
+                                <li>
+                                    <ProductCategories />
                                 </li>
                             </>
                             :
