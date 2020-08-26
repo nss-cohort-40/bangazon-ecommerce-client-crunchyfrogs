@@ -10,6 +10,7 @@ const ProductForm = (props) => {
     const imagePath = useRef()
     const [productTypeId, setProductTypeId] = useState({ product_type_id: "" })
     const [productTypes, setProductTypes] = useState([])
+    const [formValid, setFormValid] = useState(false)
 
     const getProductTypes = () => {
         Api.getProductTypes().then(productTypes => {
@@ -26,19 +27,24 @@ const ProductForm = (props) => {
     }
 
     const onSubmitHandler = () => {
-        const product = {
-            title: title.current.value,
-            price: price.current.value,
-            description: description.current.value,
-            quantity: quantity.current.value,
-            location: location.current.value,
-            image_path: imagePath.current.value,
-            product_type_id: productTypeId.product_type_id
-        }
-        Api.postNewProduct(product).then(e => {
+        if (formValid) {
+            const product = {
+                title: title.current.value,
+                price: price.current.value,
+                description: description.current.value,
+                quantity: quantity.current.value,
+                location: location.current.value,
+                image_path: imagePath.current.value,
+                product_type_id: productTypeId.product_type_id
+            }
+            Api.postNewProduct(product).then(e => {
 
-        })
-        props.history.push("/products")
+            })
+            props.history.push("/products")
+        } else {
+            alert("Hello world!")
+        }
+
     }
 
     useEffect(getProductTypes, [])
@@ -95,7 +101,7 @@ const ProductForm = (props) => {
                     />
                 </fieldset>
                 <fieldset>
-                    <select onChange={handleTypeChange} id="productTypeId">
+                    <select required onChange={handleTypeChange} id="productTypeId">
                         <option>Select Product Type</option>
                         {productTypes.map(productType => <option key={productType.id}>{productType.name}</option>)}
                     </select>
