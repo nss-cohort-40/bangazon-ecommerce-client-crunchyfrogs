@@ -25,7 +25,7 @@ const NavBar = props => {
                         isAuthenticated() ?
                             <>
                                 <li>
-                                    <Link className="nav_link" to="/">My Products</Link>
+                                    <Link className="nav_link" to="/products">My Products</Link>
                                 </li>
                                 <li>
                                     <Link className="nav_link" to="/">My Favorites</Link>
@@ -49,20 +49,20 @@ const NavBar = props => {
                 <div className="nav_rightside">
                     {
                         isAuthenticated() ? <>
-                                <li>
-                                    <Link className="nav_link" to="/">Cart</Link>
-                                </li>
+                            <li>
+                                <Link className="nav_link" to="/">Cart</Link>
+                            </li>
                             <li className="nav_link">
                                 <button className="nav-link fakeLink"
-                                onClick={() => {
-                                    logout()
-                                    props.history.push({
-                                        pathname: "/"
-                                    })
-                                }
-                                }
+                                    onClick={() => {
+                                        logout()
+                                        props.history.push({
+                                            pathname: "/"
+                                        })
+                                    }
+                                    }
                                 >Logout</button>
-                            </li> </>:
+                            </li> </> :
                             <>
                                 <li>
                                     <Link className="nav_link" to="/login">Login</Link>

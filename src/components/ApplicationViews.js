@@ -3,6 +3,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
+import ProductList from './product/ProductList'
+import ProductForm from "./product/ProductForm"
 import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 
@@ -41,6 +43,16 @@ const ApplicationViews = () => {
                 }}
             />
             <Route
+                exact path="/products" render={props => {
+                    return <ProductList {...props} />
+                }}
+            />
+            <Route
+                exact path="/addproduct" render={props => {
+                    return <ProductForm {...props} />
+                }}
+            />
+            <Route
                 exact path="/account" render={props => {
                     return <Account customer={customer} {...props}/>
                 }}
@@ -50,9 +62,9 @@ const ApplicationViews = () => {
                     return <AccountForm customer={customer} getCustomer={getCustomer} setCustomer={setCustomer} {...props} />
                 }}
             />
+            
         </>
     )
 }
-
 
 export default ApplicationViews
