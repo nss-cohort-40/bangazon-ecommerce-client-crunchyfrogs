@@ -10,8 +10,10 @@ const NavBar = props => {
     const { isAuthenticated, logout } = useSimpleAuth()
 
     const handleLogout = () => {
+        props.setIsCurrentUser(false)
         logout()
-        return <Redirect to="/" />
+        props.setIsCurrentUser(true)
+        props.history.push('/')
     }
 
     return (
@@ -54,13 +56,7 @@ const NavBar = props => {
                             </li>
                             <li className="nav_link">
                                 <button className="nav-link fakeLink"
-                                    onClick={() => {
-                                        logout()
-                                        props.history.push({
-                                            pathname: "/"
-                                        })
-                                    }
-                                    }
+                                    onClick={handleLogout}
                                 >Logout</button>
                             </li> </> :
                             <>

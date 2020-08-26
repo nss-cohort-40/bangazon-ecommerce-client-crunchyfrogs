@@ -9,8 +9,10 @@ import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 
 
-const ApplicationViews = () => {
+const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
+
+    const propStorage = props
 
     const getCustomer = () => {
         fetch("http://localhost:8000/customer", {
@@ -28,18 +30,18 @@ const ApplicationViews = () => {
 
     useEffect(() => {
         getCustomer()
-    }, [])
+    }, [props.isCurrentUser])
 
     return (
         <>
             <Route
                 exact path="/register" render={props => {
-                    return <Register />
+                    return <Register setIsCurrentUser={propStorage.setIsCurrentUser} />
                 }}
             />
             <Route
                 exact path="/login" render={props => {
-                    return <Login {...props}/>
+                    return <Login setIsCurrentUser={propStorage.setIsCurrentUser} {...props} />
                 }}
             />
             <Route

@@ -14,8 +14,8 @@ const Account = props => {
     return (
         <div className="account_view">
             <div className="account_info">
-                {props.customer.user ? <p>{props.customer.user.first_name}</p> : null}
-                {props.customer.user ? <p>{props.customer.user.last_name}</p> : null}
+                <p>{props.customer.user.first_name}</p>
+                <p>{props.customer.user.last_name}</p>
                 <p>{props.customer.address}</p>
                 <p>{props.customer.phone_number}</p>
                 {/* <PaymentOptions paymentOptions={paymentOptions} /> */}

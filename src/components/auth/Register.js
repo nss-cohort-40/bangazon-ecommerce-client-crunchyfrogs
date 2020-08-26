@@ -17,7 +17,7 @@ const Register = props => {
 
     const handleRegister = (e) => {
         e.preventDefault()
-
+        props.setIsCurrentUser(false)
         const newUser = {
             "username": userName.current.value,
             "first_name": firstName.current.value,
@@ -29,6 +29,7 @@ const Register = props => {
         }
 
         register(newUser).then(() => {
+            props.setIsCurrentUser(true)
             props.history.push({
                 pathname: "/"
             })
