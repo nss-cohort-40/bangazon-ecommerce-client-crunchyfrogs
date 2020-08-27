@@ -4,7 +4,8 @@ import React, { useState, useEffect } from "react"
 const ProductDetails = props => {
 
     const [product, setProduct] = useState({})
-    const [quantity, setQuantity] = useState(0)
+    const [numProducts, setNumProducts] = useState(0)
+    const [numOrders, setNumOrders] = useState(0)
 
     const getProduct = () => {
         fetch(`http://localhost:8000/product/${props.productId}`, {
@@ -17,14 +18,14 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(products => {
-            console.log(products)
+            // console.log(products)
             setProduct(products)
-            setQuantity(quantity + products.quantity)
+            setNumProducts(products.quantity)
         })
     }
 
     const findQuantity = () => {
-        fetch(`http://localhost:8000/productorders/${props.productId}`, {
+        fetch(`http://localhost:8000/productorders?product=${props.productId}`, {
             "method": "GET",
             "headers": {
                 "Accept": "application/json",
@@ -34,13 +35,14 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(productOrders => {
-            setQuantity(quantity - productOrders.length)
+            console.log(productOrders)
+            setNumOrders(productOrders.length)
         })
     }
 
     useEffect(() => {
         getProduct()
-        console.log(product)
+        findQuantity()
     }, [])
 
     return (
@@ -48,8 +50,11 @@ const ProductDetails = props => {
             <p>Title: {product.title}</p>
             <p>Description: {product.description}</p>
             <p>Price per unit: {product.price}</p>
-            <p>Quantity available: {product.quantity}</p>
+            <p>Quantity available: {numProducts - numOrders}</p>
+            {
+            numProducts > numOrders &&
             <button>Add to Cart</button>
+            }
         </div>
     )
 }
