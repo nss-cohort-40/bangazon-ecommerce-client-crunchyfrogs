@@ -21,11 +21,7 @@ const ProductList = props => {
             })
     }
 
-    const handleDelete = productId => {
-        Api.delete(productId).then(() =>
-            props.history.push("/products")
-        );
-    };
+
 
     const getProducts = () => {
         Api.getProducts().then(products => {
@@ -45,7 +41,7 @@ const ProductList = props => {
             </button>
             </Link>
 
-            {products.map(product => <ProductCard key={product.id} product={product} handleDelete={handleDelete} {...props} />)}
+            {products.map(product => <ProductCard key={product.id} product={product} getProducts={getProducts} {...props} />)}
         </>
     )
 }
