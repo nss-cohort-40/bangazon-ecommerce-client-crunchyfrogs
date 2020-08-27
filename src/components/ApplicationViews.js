@@ -15,7 +15,17 @@ const ApplicationViews = () => {
         />
         <Route
             exact path="/login" render={props => {
-                return <Login {...props}/>
+                return <Login {...props} />
+            }}
+        />
+        <Route
+            exact path="/register/" render={props => {
+                return <Register />
+            }}
+        />
+        <Route
+            exact path="/products?search=:keywords(\d+)" render={props => {
+                return <SearchBar keyword={props.match.params.categoryId} {...props} />
             }}
         />
     </>)
