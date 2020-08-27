@@ -6,6 +6,7 @@ const ProductDetails = props => {
     const [product, setProduct] = useState({})
     const [numProducts, setNumProducts] = useState(0)
     const [numOrders, setNumOrders] = useState(0)
+    const [updatePage, setUpdatePage] = useState(false)
 
     const getProduct = () => {
         fetch(`http://localhost:8000/product/${props.productId}`, {
@@ -35,15 +36,53 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(productOrders => {
-            console.log(productOrders)
             setNumOrders(productOrders.length)
+        })
+    }
+
+    const addToOrder = () => {
+        fetch(`http://localhost:8000/orders?paymenttype=true`, {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+        .then(response => response.json())
+        .then(order => {
+            console.log(order)
+            if (order.length === 0) {
+                fetch(`http://localhost:8000/orders`, {
+                    "method": "POST",
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    }
+                })
+            } else {
+                fetch(`http://localhost:8000/productorders`, {
+                    "method": "POST",
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    },
+                    "body": JSON.stringify({
+                        product_id: product.id,
+                        order_id: order[0].id
+                    })
+                })
+                .then(() => setUpdatePage(!updatePage))
+            }
         })
     }
 
     useEffect(() => {
         getProduct()
         findQuantity()
-    }, [])
+    }, [updatePage])
 
     return (
         <div>
@@ -53,7 +92,7 @@ const ProductDetails = props => {
             <p>Quantity available: {numProducts - numOrders}</p>
             {
             numProducts > numOrders &&
-            <button>Add to Cart</button>
+            <button onClick={addToOrder}>Add to Cart</button>
             }
         </div>
     )
