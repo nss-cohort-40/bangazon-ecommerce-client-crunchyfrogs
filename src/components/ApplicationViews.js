@@ -23,12 +23,8 @@ const ApplicationViews = () => {
             }}
         />
         <Route
-            exact path="/register/" render={props => {
-                return <Register />
-            }}
-        />
-        <Route
             exact path="/products?search=:searchword(\d+)" render={props => {
+                console.log("Application Views")
                 return <SearchResults searchword={props.match.params.searchword} {...props} />
             }}
         />

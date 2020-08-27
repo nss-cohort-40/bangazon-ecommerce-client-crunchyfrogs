@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import searchRequest from "../../api/module"
-import ProductBox from "../Products/ProductsBox"
+import ProductBox from "../Products/ProductBox"
 
 
 const SearchResults = props => {
@@ -9,16 +9,17 @@ const SearchResults = props => {
     const {results, setResults} = useState({})
 
     useEffect(
-        ()=>{
-            setResults = searchRequest(searchword)
-        }
+        async ()=>{
+            setResults = await searchRequest(searchword)
+            console.log("triggered")
+        }, []
     )
 
     return <>
-    <t1>Results</t1>
-        <ul>
-            { results.map(product => <ProductBox product={product} {...props}/>) }
-        </ul>
+    <h1>Results</h1>
+    <ul>
+        {results.map((product) => <ProductBox product={product} {...props}/>) }
+    </ul>
     </>
 }
 
