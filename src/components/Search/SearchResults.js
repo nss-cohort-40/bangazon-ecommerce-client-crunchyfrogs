@@ -6,19 +6,22 @@ import ProductBox from "../Products/ProductBox"
 const SearchResults = props => {
     const searchword = props.searchword
 
-    const {results, setResults} = useState({})
+    const [results, setResults] = useState([])
 
     useEffect(
         async ()=>{
-            setResults = await searchRequest(searchword)
-            console.log("triggered")
+            setResults(await searchRequest(searchword))
         }, []
     )
 
     return <>
     <h1>Results</h1>
     <ul>
-        {results.map((product) => <ProductBox product={product} {...props}/>) }
+    { results.length == 0 ?
+        (results.map(product => <ProductBox product={product} {...props}/>))
+        :
+        <p>Nothing found.</p>
+    }
     </ul>
     </>
 }

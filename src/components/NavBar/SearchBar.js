@@ -10,7 +10,7 @@ const SearchBar = props => {
         setSearch(refSearch.current.value)
     }
     
-    let link_to_search = `/product?search=${search}`
+    let link_to_search = `/product/${search}`
 
     return (
         <>
