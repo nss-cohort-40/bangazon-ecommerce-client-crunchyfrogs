@@ -9,6 +9,7 @@ import ProductForm from "./product/ProductForm";
 import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 import ProductByCategory from './product/ProductByCategory';
+import ProductDetails from './productdetails/ProductDetails';
 
 
 const ApplicationViews = props => {
@@ -54,6 +55,11 @@ const ApplicationViews = props => {
             <Route
                 exact path="/products" render={props => {
                     return <ProductList {...props} />
+                }}
+            />
+            <Route
+                exact path="/products/:productId(\d+)" render={props => {
+                    return <ProductDetails productId={parseInt(props.match.params.productId)} {...props} />
                 }}
             />
             <Route
