@@ -9,6 +9,18 @@ const ProductCard = (props) => {
 
     }
 
+    const handleDeleteProductOrder = id => {
+        fetch(`http://localhost:8000/productorders/${id}`, {
+            "method": "DELETE",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+        .then(() => props.history.push("/cart"))
+    }
+
     return (
         <>
             <table>
@@ -48,6 +60,11 @@ const ProductCard = (props) => {
                 </button>
                 : null}
 
+            {props.product.productOrderId ?
+                <a href="/cart"><button onClick={() => handleDeleteProductOrder(props.product.productOrderId)}>
+                    Remove from order
+                </button></a>
+                : null}
         </>
     )
 }

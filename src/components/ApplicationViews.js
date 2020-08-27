@@ -10,6 +10,7 @@ import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 import ProductByCategory from './product/ProductByCategory';
 import ProductDetails from './productdetails/ProductDetails';
+import ShoppingCart from './shoppingcart/ShoppingCart';
 
 
 const ApplicationViews = props => {
@@ -55,6 +56,11 @@ const ApplicationViews = props => {
             <Route
                 exact path="/products" render={props => {
                     return <ProductList {...props} />
+                }}
+            />
+            <Route
+                exact path="/cart" render={props => {
+                    return <ShoppingCart {...props} />
                 }}
             />
             <Route
