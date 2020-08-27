@@ -27,6 +27,7 @@ const AddPayment = props => {
             },
             "body": JSON.stringify(paymentType)
         })
+        .then(props.getPayments())
     }
 
     const handleModal = () => {

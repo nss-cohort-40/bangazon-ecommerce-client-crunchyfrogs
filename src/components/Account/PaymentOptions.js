@@ -1,11 +1,12 @@
 import React from 'react';
+import PaymentOptionCard from './PaymentOptionCard';
 
 const PaymentOptions = props => {
     return (
         <div className="account_payment_options">
-            <ul>
-                {props.paymentOptions.forEach(payment => <PaymentOptionCard payment={payment} />)}
-            </ul>
+                {props.paymentOptions.map(payment => <PaymentOptionCard payment={payment} />)}
         </div>
     )
 }
+
+export default PaymentOptions
