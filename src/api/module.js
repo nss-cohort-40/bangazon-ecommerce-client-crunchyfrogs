@@ -17,5 +17,13 @@ export default {
     },
     getProducts() {
         return fetch(`${remoteURL}/product`).then(data => data.json())
+    },
+    deleteProduct(id) {
+        return fetch(`${remoteURL}/product/${id}`, {
+            "method": "DELETE",
+            "headers": {
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
     }
 }
