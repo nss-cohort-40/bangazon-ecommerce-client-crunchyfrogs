@@ -21,7 +21,7 @@ const ProductCard = (props) => {
                     </tr>
                     <tr>
                         <td>
-                            <h3><a href={`/products/categories/${props.product.id}`}>{props.product.title}</a></h3>
+                            <h3><a href={`/products/${props.product.id}`}>{props.product.title}</a></h3>
                         </td>
                         <td>
                             <p>${props.product.price}</p>
