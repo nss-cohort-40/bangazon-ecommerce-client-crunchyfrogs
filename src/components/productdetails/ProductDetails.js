@@ -61,6 +61,32 @@ const ProductDetails = props => {
                         "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
                     }
                 })
+                .then(() => {
+                    fetch(`http://localhost:8000/orders?paymenttype=true`, {
+                        "method": "GET",
+                        "headers": {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json",
+                            "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(order => {
+                        fetch(`http://localhost:8000/productorders`, {
+                            "method": "POST",
+                            "headers": {
+                                "Accept": "application/json",
+                                "Content-Type": "application/json",
+                                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                            },
+                            "body": JSON.stringify({
+                                product_id: product.id,
+                                order_id: order[0].id
+                            })
+                        })
+                        .then(() => setUpdatePage(!updatePage))
+                    })
+                })
             } else {
                 fetch(`http://localhost:8000/productorders`, {
                     "method": "POST",
