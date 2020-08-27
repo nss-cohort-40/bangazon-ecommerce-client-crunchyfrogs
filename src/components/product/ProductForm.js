@@ -24,9 +24,11 @@ const ProductForm = (props) => {
         const productType = productTypes.filter(productType => productType.name === stateToChange[event.target.id])
         stateToChange.product_type_id = productType[0].id
         setProductTypeId(stateToChange)
+        setFormValid(true)
     }
 
-    const onSubmitHandler = () => {
+    const onSubmitHandler = (e) => {
+
         if (formValid) {
             const product = {
                 title: title.current.value,
@@ -42,7 +44,8 @@ const ProductForm = (props) => {
             })
             props.history.push("/products")
         } else {
-            alert("Hello world!")
+            e.preventDefault()
+            alert("Please select product category!")
         }
 
     }
