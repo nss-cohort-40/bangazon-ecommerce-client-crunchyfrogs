@@ -8,16 +8,16 @@ const SearchResults = props => {
 
     const [results, setResults] = useState([])
 
-    useEffect(
-        async ()=>{
-            setResults(await searchRequest(searchword))
-        }, []
+    useEffect(()=>{
+        let fetchData = async () => setResults(await searchRequest(searchword))
+        fetchData()
+        }, [searchword]
     )
 
     return <>
     <h1>Results</h1>
     <ul>
-    { results.length == 0 ?
+    { results.length !== 0 ?
         (results.map(product => <ProductBox product={product} {...props}/>))
         :
         <p>Nothing found.</p>
