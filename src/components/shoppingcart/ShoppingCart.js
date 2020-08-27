@@ -7,10 +7,10 @@ const ShoppingCart = props => {
     const [products, setProducts] = useState([])
 
 
-    useEffect(() => {
-        
-        fetch(`http://localhost:8000/orders`, {
-            "method": "POST",
+    const getCart = () => {
+
+        fetch(`http://localhost:8000/orders?paymenttype=true`, {
+            "method": "GET",
             "headers": {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
@@ -20,10 +20,33 @@ const ShoppingCart = props => {
         .then(response => response.json())
         .then(order => {
             if (order.length === 0) {
-                console.log("wow")
+                fetch(`http://localhost:8000/orders`, {
+                    "method": "POST",
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    }
+                }).then(() => getCart())
+            } else {
+                console.log(order.id)
+                fetch(`http://localhost:8000/productorders`, {
+                    "method": "GET",
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    }
+                })
+                .then(response => response.json())
+                .then(response => console.log(response))
             }
         })
 
+    }
+
+    useEffect(() => {        
+        getCart()
     }, [])
 
     return (
