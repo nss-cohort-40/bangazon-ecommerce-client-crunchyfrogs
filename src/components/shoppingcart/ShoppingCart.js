@@ -29,8 +29,7 @@ const ShoppingCart = props => {
                     }
                 }).then(() => getCart())
             } else {
-                console.log(order.id)
-                fetch(`http://localhost:8000/productorders`, {
+                fetch(`http://localhost:8000/productorders?order=${order[0].id}`, {
                     "method": "GET",
                     "headers": {
                         "Accept": "application/json",
@@ -39,7 +38,10 @@ const ShoppingCart = props => {
                     }
                 })
                 .then(response => response.json())
-                .then(response => console.log(response))
+                .then(response => setProducts(response.map(productorder => {
+                    productorder.product.productOrderId = productorder.id
+                    return productorder.product
+                })))
             }
         })
 
@@ -51,7 +53,7 @@ const ShoppingCart = props => {
 
     return (
         <div>
-            {products.map(product => <ProductCard product={product} {...props} />)}
+            {products.map(product => <ProductCard key={product.id} product={product} {...props} />)}
         </div>
     )
 }
