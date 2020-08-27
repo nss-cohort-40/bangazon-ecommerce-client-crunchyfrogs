@@ -21,7 +21,7 @@ const ProductCard = (props) => {
                     </tr>
                     <tr>
                         <td>
-                            <h3>{props.product.title}</h3>
+                            <h3><a href={`/products/categories/${props.product.id}`}>{props.product.title}</a></h3>
                         </td>
                         <td>
                             <p>${props.product.price}</p>
@@ -42,9 +42,12 @@ const ProductCard = (props) => {
                     </tr>
                 </tbody>
             </table>
-            <button onClick={handleDelete}>
-                Delete
-            </button>
+            {props.customer ?
+                < button onClick={handleDelete}>
+                    Delete
+                </button>
+                : null}
+
         </>
     )
 }

@@ -41,7 +41,7 @@ const ProductList = props => {
             </button>
             </Link>
 
-            {products.map(product => <ProductCard key={product.id} product={product} getProducts={getProducts} {...props} />)}
+            {products.map(product => <ProductCard key={product.id} product={product} customer={customer} getProducts={getProducts} {...props} />)}
         </>
     )
 }
