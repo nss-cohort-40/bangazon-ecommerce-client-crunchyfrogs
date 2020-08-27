@@ -7,6 +7,7 @@ import ProductList from './product/ProductList'
 import ProductForm from "./product/ProductForm"
 import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
+import ProductByCategory from './product/ProductByCategory';
 
 
 const ApplicationViews = props => {
@@ -47,6 +48,11 @@ const ApplicationViews = props => {
             <Route
                 exact path="/products" render={props => {
                     return <ProductList {...props} />
+                }}
+            />
+            <Route
+                exact path="/products/categories/:categoryId(\d+)" render={props => {
+                    return <ProductByCategory categoryId={parseInt(props.match.params.categoryId)} {...props} />
                 }}
             />
             <Route
