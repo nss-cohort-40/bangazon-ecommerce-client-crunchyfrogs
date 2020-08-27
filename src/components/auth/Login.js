@@ -11,6 +11,7 @@ const Login = props => {
     // Simplistic handler for login submit
     const handleLogin = (e) => {
         e.preventDefault()
+        props.setIsCurrentUser(false)
 
         /*
             For now, just store the username and password that
@@ -23,6 +24,7 @@ const Login = props => {
 
         login(credentials)
             .then(() => {
+                props.setIsCurrentUser(true)
                 props.history.push({
                     pathname: "/"
                 })
