@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import module from "../../api/module"
-import ProductBox from "../Products/ProductBox"
+import ProductCard from "../product/ProductCard"
 
 
 const SearchResults = props => {
@@ -18,7 +18,7 @@ const SearchResults = props => {
     <h1>Results</h1>
     <ul>
     { results.length !== 0 ?
-        (results.map(product => <ProductBox product={product} {...props}/>))
+        (results.map(product => <ProductCard product={product} {...props}/>))
         :
         <p>Nothing found.</p>
     }
