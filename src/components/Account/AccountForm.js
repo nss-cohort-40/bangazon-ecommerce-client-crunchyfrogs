@@ -40,19 +40,19 @@ const AccountForm = props => {
         <form className="account_form" onSubmit={editAccount}>
             <fieldset>
                 <label htmlFor="first_name">First Name</label>
-                <input className="account_input" name="first_name" placeholder="First Name" value={props.customer.user.first_name} onChange={handleFieldChange} />
+                <input className="account_input" name="first_name" placeholder="First Name" value={props.customer.user.first_name} onChange={handleFieldChange} maxlength="30" />
             </fieldset>
             <fieldset>
                 <label htmlFor="last_name">Last Name</label>
-                <input className="account_input" name="last_name" placeholder="Last Name" value={props.customer.user.last_name} onChange={handleFieldChange} />
+                <input className="account_input" name="last_name" placeholder="Last Name" value={props.customer.user.last_name} onChange={handleFieldChange} maxlength="150" />
             </fieldset>
             <fieldset>
                 <label htmlFor="phone_number">Phone Number</label>
-                <input className="account_input" name="phone_number" placeholder="Phone Number" value={props.customer.phone_number} onChange={handleFieldChange} />
+                <input className="account_input" name="phone_number" placeholder="Phone Number" value={props.customer.phone_number} onChange={handleFieldChange} max="999999999999999" type="number" />
             </fieldset>
             <fieldset>
                 <label htmlFor="address">Address</label>
-                <input className="account_input" name="address" placeholder="Address" value={props.customer.address} onChange={handleFieldChange} />
+                <input className="account_input" name="address" placeholder="Address" value={props.customer.address} onChange={handleFieldChange} maxlength="255" />
             </fieldset>
             <button type="submit">Submit</button>
         </form>
