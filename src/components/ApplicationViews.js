@@ -1,9 +1,13 @@
 import { Route, Redirect } from 'react-router-dom';
 import { BrowserRouter as Router } from "react-router-dom"
+
+
 import React from 'react';
 import Login from "./auth/Login"
 import Register from "./auth/Register"
 import ProductCategories from './productcategories/ProductCategories'
+import SearchResults from "./Search/SearchResults"
+
 
 
 const ApplicationViews = () => {
@@ -24,8 +28,8 @@ const ApplicationViews = () => {
             }}
         />
         <Route
-            exact path="/products?search=:keywords(\d+)" render={props => {
-                return <SearchBar keyword={props.match.params.categoryId} {...props} />
+            exact path="/products?search=:searchword(\d+)" render={props => {
+                return <SearchResults searchword={props.match.params.searchword} {...props} />
             }}
         />
     </>)
