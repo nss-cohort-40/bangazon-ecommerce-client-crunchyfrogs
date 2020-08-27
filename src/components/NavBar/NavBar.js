@@ -52,7 +52,7 @@ const NavBar = props => {
                     {
                         isAuthenticated() ? <>
                             <li>
-                                <Link className="nav_link" to="/">Cart</Link>
+                                <Link className="nav_link" to="/cart">Cart</Link>
                             </li>
                             <li className="nav_link">
                                 <button className="nav-link fakeLink"

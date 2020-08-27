@@ -3,13 +3,15 @@ import { BrowserRouter as Router } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import Login from "./auth/Login";
 import Register from "./auth/Register";
-import ProductList from './product/ProductList'
-import ProductForm from "./product/ProductForm"
+import Home from "./Home/Home";
+import ProductList from './product/ProductList';
+import ProductForm from "./product/ProductForm";
 import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 import ProductByCategory from './product/ProductByCategory';
 import ProductDetails from './productdetails/ProductDetails';
 import SearchResults from "./Search/SearchResults"
+import ShoppingCart from './shoppingcart/ShoppingCart';
 
 
 const ApplicationViews = props => {
@@ -38,6 +40,11 @@ const ApplicationViews = props => {
     return (
         <>
             <Route
+                exact path="/" render={props => {
+                    return <Home {...props} />
+                }}
+            />
+            <Route
                 exact path="/register" render={props => {
                     return <Register setIsCurrentUser={propStorage.setIsCurrentUser} />
                 }}
@@ -50,6 +57,11 @@ const ApplicationViews = props => {
             <Route
                 exact path="/products" render={props => {
                     return <ProductList {...props} />
+                }}
+            />
+            <Route
+                exact path="/cart" render={props => {
+                    return <ShoppingCart {...props} />
                 }}
             />
             <Route
