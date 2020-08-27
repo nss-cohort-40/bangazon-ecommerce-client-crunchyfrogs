@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 const ProductDetails = props => {
 
     const [product, setProduct] = useState({})
+    const [quantity, setQuantity] = useState(0)
 
     const getProduct = () => {
         fetch(`http://localhost:8000/product/${props.productId}`, {
@@ -18,6 +19,22 @@ const ProductDetails = props => {
         .then(products => {
             console.log(products)
             setProduct(products)
+            setQuantity(quantity + products.quantity)
+        })
+    }
+
+    const findQuantity = () => {
+        fetch(`http://localhost:8000/productorders/${props.productId}`, {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+        .then(response => response.json())
+        .then(productOrders => {
+            setQuantity(quantity - productOrders.length)
         })
     }
 
