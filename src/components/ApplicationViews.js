@@ -79,7 +79,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/cart" render={props => {
-                    return <ShoppingCart paymentOptions={paymentOptions} {...props} />
+                    return <ShoppingCart paymentOptions={paymentOptions} customer={customer} {...props} />
                 }}
             />
             <Route

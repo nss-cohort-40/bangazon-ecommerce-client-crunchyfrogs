@@ -1,5 +1,4 @@
-import React from 'react';
-import { Router, Route, Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 const PaymentOptionCard = props => {
     const [orderPayment, setOrderPayment] = useState({
@@ -10,7 +9,7 @@ const PaymentOptionCard = props => {
     })
 
     const handlePayment = e => {
-        set
+        setOrderPayment()
         props.history.push('/confirmation')
     }
 

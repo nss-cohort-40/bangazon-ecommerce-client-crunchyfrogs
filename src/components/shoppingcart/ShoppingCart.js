@@ -59,7 +59,7 @@ const ShoppingCart = props => {
 
     return (
         showPaymentOptions ?
-        <PaymentOptions paymentOptions={props.paymentOptions} cart={true} {...props} />
+        <PaymentOptions paymentOptions={props.paymentOptions} cart={true} customer={props.customer} {...props} />
         :
         <div>
             {products.map(product => <ProductCard key={product.productOrderId} product={product} {...props} />)}
