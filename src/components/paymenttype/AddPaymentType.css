@@ -1,0 +1,4 @@
+#add-payment-form{
+    display: flex;
+    flex-direction: column;
+}
