@@ -15,7 +15,7 @@ import ShoppingCart from './shoppingcart/ShoppingCart';
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
-
+    const [paymentOptions, setPaymentOptions] = useState([])
     const propStorage = props
 
     const getCustomer = () => {
@@ -32,9 +32,28 @@ const ApplicationViews = props => {
             })
     }
 
+    const getPayments = () => {
+        if (customer.id) {
+            fetch(`http://localhost:8000/paymenttype?customer=${customer.id}`, {
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => setPaymentOptions(data))
+        }
+    }
+
     useEffect(() => {
         getCustomer()
     }, [props.isCurrentUser])
+
+    useEffect(() => {
+        getPayments()
+    }, [customer])
 
     return (
         <>
@@ -60,7 +79,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/cart" render={props => {
-                    return <ShoppingCart {...props} />
+                    return <ShoppingCart paymentOptions={paymentOptions} {...props} />
                 }}
             />
             <Route
@@ -80,7 +99,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/account" render={props => {
-                    return <Account customer={customer} {...props}/>
+                    return <Account customer={customer} getPayments={getPayments} paymentOptions={paymentOptions} {...props} />
                 }}
             />
             <Route
