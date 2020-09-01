@@ -17,6 +17,7 @@ import ShoppingCart from './shoppingcart/ShoppingCart';
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
 
+    const isLoged = props.isLoged
     const propStorage = props
 
     const getCustomer = () => {
@@ -41,7 +42,7 @@ const ApplicationViews = props => {
         <>
             <Route
                 exact path="/" render={props => {
-                    return <Home {...props} />
+                    return <Home {...props} customer={customer}/>
                 }}
             />
             <Route
@@ -66,6 +67,9 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/products/:productId(\d+)" render={props => {
+                    if (!isLoged()){
+                       return  <Redirect to="/login" />
+                    }
                     return <ProductDetails productId={parseInt(props.match.params.productId)} {...props} />
                 }}
             />
