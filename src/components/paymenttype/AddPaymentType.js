@@ -11,8 +11,30 @@ const AddPayment = props => {
 
     const handleAddPayment = (evt) => {
         evt.preventDefault()
-        
-        const expirationDate = expirationYear.current.value + "-" + expirationMonth.current.value + "-01" 
+
+        //Checks for month and year slots actually selected
+        if(expirationMonth.current.value === "MM" || expirationYear.current.value === "YY"){
+            window.alert("Please enter an expiration date for your payment type.")
+            return
+        }
+
+        //Formats the month (and year if needed) to be +1 to accurately reflect how payment expiration works, then formats.
+        let expMonth = (parseInt(expirationMonth.current.value) + 1)
+        let expYear = parseInt(expirationYear.current.value)
+        if(expMonth === 13){
+            expMonth = 1
+            expYear += 1
+        }
+        if(expMonth <= 9){
+            expMonth = "0" + expMonth.toString()
+        }
+        else{
+            expMonth = expMonth.toString()
+        }
+
+        expYear = expYear.toString()
+
+        const expirationDate = expYear + "-" + expMonth + "-01" 
         const date_today = Date.now()
         const exp_date = Date.parse(expirationDate)
 
@@ -38,12 +60,16 @@ const AddPayment = props => {
         })
         .then(props.getPayments())
     }
-}
+    }
 
     const handleModal = () => {
         if (toggleModal) {
             document.getElementById("add-payment-type-dialog").close()
             setPaymentButton("Add a payment type")
+            merchantName.current.value = ""
+            accountNumber.current.value = ""
+            expirationMonth.current.value = "MM"
+            expirationYear.current.value = "YY"
         } else {
             document.getElementById("add-payment-type-dialog").show()
             setPaymentButton("cancel")
@@ -58,12 +84,13 @@ const AddPayment = props => {
             <dialog id="add-payment-type-dialog">
                 <form id="add-payment-form" onSubmit={handleAddPayment}>
                     <label for="merchant_name">Merchant: </label>
-                    <input id="merchant_name" ref={merchantName}></input>
+                    <input id="merchant_name" ref={merchantName} required></input>
                     <label for="account_number">Account Number: </label>
-                    <input id="account_number" ref={accountNumber}></input>
+                    <input id="account_number" ref={accountNumber} required></input>
                     <div id="exp-date-selector">
                         <label for="expiration_month">Expiration Date: </label>
-                        <select id="expiration_month" ref={expirationMonth}>
+                        <select id="expiration_month" ref={expirationMonth} required>
+                            <option selected value="MM">MM</option>
                             <option value="1">01</option>
                             <option value="2">02</option>
                             <option value="3">03</option>
@@ -79,6 +106,7 @@ const AddPayment = props => {
                         </select>
                         <label for="expiration_year">/</label>
                         <select id="expiration_year" ref={expirationYear}>
+                            <option selected value="YY">YY</option>
                             <option value="2020">20</option>
                             <option value="2021">21</option>
                             <option value="2022">22</option>
