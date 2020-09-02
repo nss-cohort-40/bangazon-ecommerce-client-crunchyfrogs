@@ -10,12 +10,15 @@ import Account from './Account/Account';
 import AccountForm from './Account/AccountForm';
 import ProductByCategory from './product/ProductByCategory';
 import ProductDetails from './productdetails/ProductDetails';
+import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
 
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
     const [paymentOptions, setPaymentOptions] = useState([])
+
+    const isLoged = props.isLoged
     const propStorage = props
 
     const getCustomer = () => {
@@ -59,7 +62,7 @@ const ApplicationViews = props => {
         <>
             <Route
                 exact path="/" render={props => {
-                    return <Home {...props} />
+                    return <Home {...props} customer={customer}/>
                 }}
             />
             <Route
@@ -84,6 +87,9 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/products/:productId(\d+)" render={props => {
+                    if (!isLoged()){
+                       return  <Redirect to="/login" />
+                    }
                     return <ProductDetails productId={parseInt(props.match.params.productId)} {...props} />
                 }}
             />
@@ -107,6 +113,12 @@ const ApplicationViews = props => {
                     return <AccountForm customer={customer} getCustomer={getCustomer} setCustomer={setCustomer} {...props} />
                 }}
             />
+            <Route
+            exact path="/product/:searchword" render={props => {
+                console.log("Application Views")
+                return <SearchResults searchword={props.match.params.searchword} {...props} />
+            }}
+        />
             
         </>
     )

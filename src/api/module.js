@@ -25,5 +25,9 @@ export default {
                 "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
             }
         })
+    },
+    async searchRequest(keywords) {
+        let myRequest = await fetch(`${remoteURL}/product?search=${keywords}`).then(data => data.json())
+        return myRequest
     }
 }
