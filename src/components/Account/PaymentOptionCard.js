@@ -1,16 +1,38 @@
 import React, { useState } from 'react';
 
 const PaymentOptionCard = props => {
-    const [orderPayment, setOrderPayment] = useState({
-        "merchant_name": "",
-        "account_number": "",
-        "expiration_date": "",
-        "customer": props.customer.id
-    })
+
+    const getOpenOrder = () => {
+        return fetch("http://localhost:8000/orders?paymenttype=true", {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+            .then(response => response.json())
+    }
+
+    const addPaymentToOrder = (order, paymentId) => {
+        order.payment_type = paymentId
+        return fetch(`http://localhost:8000/orders/${order.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-type': "application/json",
+                "Accept": "application/json",
+                "Authorization": `Token ${localStorage.getItem('bangazon_token')}`
+            },
+            body: JSON.stringify(order)
+        })
+    }
 
     const handlePayment = e => {
-        setOrderPayment()
-        props.history.push('/confirmation')
+        const chosenPayment = props.payment.id
+        getOpenOrder().then(openOrder => {
+                console.log('order', openOrder[0], 'payment', chosenPayment)
+                addPaymentToOrder(openOrder[0], chosenPayment)
+            })
+            .then(() => props.history.push('/confirmation'))
     }
 
     return (
