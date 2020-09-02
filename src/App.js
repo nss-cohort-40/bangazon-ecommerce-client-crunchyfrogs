@@ -9,13 +9,22 @@ function App() {
 
   const [isCurrentUser, setIsCurrentUser] = useState(false)
 
+  const isLoged = () => {
+    let session = localStorage.getItem("bangazon_token")
+    if (session != undefined) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
     <>
         <Router>
         <Route render={props => (
                 <NavBar {...props} setIsCurrentUser={setIsCurrentUser} />
             )} />
-          <ApplicationViews isCurrentUser={isCurrentUser} setIsCurrentUser={setIsCurrentUser} />
+          <ApplicationViews isLoged={isLoged} isCurrentUser={isCurrentUser} setIsCurrentUser={setIsCurrentUser} />
         </Router>
     </>
   );

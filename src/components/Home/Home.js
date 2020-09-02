@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProductCard from '../product/ProductCard';
 
 const Home = props => {
+    let customer = props.customer
     const [recentProducts, setRecentProducts] = useState([])
 
     const getProducts = () => {
@@ -9,7 +10,7 @@ const Home = props => {
                 "method": "GET",
                 "headers": {
                     "Accept": "application/json",
-                    "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    // "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
                 }
             })
                 .then(response => response.json())
@@ -22,7 +23,7 @@ const Home = props => {
 
     return (
         <div className="home_recent_products">
-            {recentProducts.map(product => <ProductCard product={product} />)}
+            {recentProducts.map(product => <ProductCard product={product} customer={customer} />)}
         </div>
     )
 }
