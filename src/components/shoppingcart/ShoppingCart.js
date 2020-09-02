@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import ProductCard from '../product/ProductCard'
-
+import PaymentOptions from '../Account/PaymentOptions'
 
 const ShoppingCart = props => {
 
     const [products, setProducts] = useState([])
-
+    const [showPaymentOptions, setShowPaymentOptions] = useState(false)
 
     const getCart = () => {
 
@@ -49,14 +49,23 @@ const ShoppingCart = props => {
 
     }
 
+    const togglePaymentOptions = e => {
+        setShowPaymentOptions(!showPaymentOptions)
+    }
+
     useEffect(() => {        
         getCart()
     }, [])
 
     return (
+        showPaymentOptions ?
+        <PaymentOptions paymentOptions={props.paymentOptions} cart={true} customer={props.customer} {...props} />
+        :
         <div>
             {products.map(product => <ProductCard key={product.productOrderId} product={product} {...props} />)}
+            <button onClick={togglePaymentOptions}>Complete Order</button>
         </div>
+
     )
 }
 
