@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { CloudinaryContext } from 'cloudinary-react'
+import cloudinary_username from '../api_key'
 import Api from '../../api/module'
 
 const ProductForm = (props) => {
@@ -34,7 +34,7 @@ const ProductForm = (props) => {
         imageData.append('file', imagePath.current.files[0])
         imageData.append('upload_preset', 'bangazon')
         const res = await fetch(
-            'https://api.cloudinary.com/v1_1/ded3zno0y/image/upload',
+            `https://api.cloudinary.com/v1_1/${cloudinary_username}/image/upload`,
             {
                 method: 'POST',
                 body: imageData
