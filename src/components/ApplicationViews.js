@@ -12,10 +12,11 @@ import ProductByCategory from './product/ProductByCategory';
 import ProductDetails from './productdetails/ProductDetails';
 import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
-
+import Confirmation from './Confirmation/Confirmation';
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
+    const [paymentOptions, setPaymentOptions] = useState([])
 
     const isLoged = props.isLoged
     const propStorage = props
@@ -34,9 +35,28 @@ const ApplicationViews = props => {
             })
     }
 
+    const getPayments = () => {
+        if (customer) {
+            fetch(`http://localhost:8000/paymenttype?customer=${customer.id}`, {
+                "method": "GET",
+                "headers": {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                }
+            })
+            .then(response => response.json())
+            .then(data => setPaymentOptions(data))
+        }
+    }
+
     useEffect(() => {
         getCustomer()
     }, [props.isCurrentUser])
+
+    useEffect(() => {
+        getPayments()
+    }, [customer])
 
     return (
         <>
@@ -62,7 +82,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/cart" render={props => {
-                    return <ShoppingCart {...props} />
+                    return <ShoppingCart paymentOptions={paymentOptions} customer={customer} {...props} />
                 }}
             />
             <Route
@@ -85,7 +105,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/account" render={props => {
-                    return <Account customer={customer} {...props}/>
+                    return <Account customer={customer} getPayments={getPayments} paymentOptions={paymentOptions} {...props} />
                 }}
             />
             <Route
@@ -98,7 +118,13 @@ const ApplicationViews = props => {
                 console.log("Application Views")
                 return <SearchResults searchword={props.match.params.searchword} {...props} />
             }}
-        />
+            />
+            <Route
+                exact path="/confirmation" render={props => {
+                    return <Confirmation customer={customer} {...props} />
+            }}
+            />
+
             
         </>
     )
