@@ -1,4 +1,6 @@
 import React, { useRef } from "react"
+import { useHistory } from "react-router-dom"
+
 import "./Login.css"
 import useSimpleAuth from "../../hooks/ui/useSimpleAuth";
 
@@ -7,7 +9,11 @@ const Login = props => {
     const username = useRef()
     const password = useRef()
     const { login } = useSimpleAuth()
-
+    
+    let history = useHistory();
+    let back = () => {
+        history.goBack();
+    }
     // Simplistic handler for login submit
     const handleLogin = (e) => {
         e.preventDefault()
@@ -22,12 +28,11 @@ const Login = props => {
             "password": password.current.value
         }
 
+
         login(credentials)
             .then(() => {
                 props.setIsCurrentUser(true)
-                props.history.push({
-                    pathname: "/"
-                })
+                back()
             })
     }
 

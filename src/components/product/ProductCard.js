@@ -3,7 +3,7 @@ import Api from '../../api/module'
 
 
 const ProductCard = (props) => {
-
+    
     const handleDelete = () => {
         Api.deleteProduct(props.product.id).then(props.getProducts)
 
@@ -21,6 +21,10 @@ const ProductCard = (props) => {
         .then(() => props.history.push("/cart"))
     }
 
+
+    // Make sure the user is logged to click in the link and be redirected to Login
+    let productLink = `/products/${props.product.id}`
+
     return (
         <>
             <table>
@@ -33,7 +37,8 @@ const ProductCard = (props) => {
                     </tr>
                     <tr>
                         <td>
-                            <h3><a href={`/products/${props.product.id}`}>{props.product.title}</a></h3>
+                        {/* To be corrected later */}
+                            <h3><a href={productLink}>{props.product.title}</a></h3>
                         </td>
                         <td>
                             <p>${props.product.price}</p>
