@@ -12,7 +12,7 @@ import ProductByCategory from './product/ProductByCategory';
 import ProductDetails from './productdetails/ProductDetails';
 import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
-
+import Confirmation from './Confirmation/Confirmation';
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
@@ -118,7 +118,13 @@ const ApplicationViews = props => {
                 console.log("Application Views")
                 return <SearchResults searchword={props.match.params.searchword} {...props} />
             }}
-        />
+            />
+            <Route
+                exact path="/confirmation" render={props => {
+                    return <Confirmation customer={customer} {...props} />
+            }}
+            />
+
             
         </>
     )
