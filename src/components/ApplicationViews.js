@@ -36,7 +36,7 @@ const ApplicationViews = props => {
     }
 
     const getPayments = () => {
-        if (customer.id) {
+        if (customer) {
             fetch(`http://localhost:8000/paymenttype?customer=${customer.id}`, {
                 "method": "GET",
                 "headers": {
