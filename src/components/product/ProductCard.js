@@ -28,7 +28,7 @@ const ProductCard = (props) => {
 
                     <tr>
                         <td>
-                            <img src={props.product.image_url} />
+                            <img src={props.product.image_path} style={{width:'50%'}}/>
                         </td>
                     </tr>
                     <tr>

@@ -19,7 +19,6 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(products => {
-            // console.log(products)
             setProduct(products)
             setNumProducts(products.quantity)
         })
@@ -112,6 +111,7 @@ const ProductDetails = props => {
 
     return (
         <div>
+            <img src={product.image_path} style={{width:'300px'}}/>
             <p>Title: {product.title}</p>
             <p>Description: {product.description}</p>
             <p>Price per unit: {product.price}</p>
