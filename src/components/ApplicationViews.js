@@ -13,6 +13,7 @@ import ProductDetails from './productdetails/ProductDetails';
 import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
 import Confirmation from './Confirmation/Confirmation';
+import OrderDetailsCard from './Order/OrderDetailsCard';
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
@@ -123,8 +124,11 @@ const ApplicationViews = props => {
                     return <Confirmation customer={customer} {...props} />
             }}
             />
-
-            
+            <Route
+                exact path="/orders/:orderId(\d+)" render={props => {
+                    return <OrderDetailsCard orderId={parseInt(props.match.params.orderId)} {...props} />
+                }}
+            />
         </>
     )
 }

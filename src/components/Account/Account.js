@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import OrderHistory from './OrderHistory';
+import OrderHistory from '../Order/OrderHistory';
 import PaymentOptions from './PaymentOptions';
 import AddPayment from '../paymenttype/AddPaymentType';
 
@@ -11,7 +11,7 @@ const Account = props => {
     }
 
     const getClosedOrders = e => {
-        return fetch("http://localhost:8000/orders?paymenttype=false", {
+        return fetch("http://localhost:8000/orders", {
             "method": "GET",
             "headers": {
                 "Accept": "application/json",
