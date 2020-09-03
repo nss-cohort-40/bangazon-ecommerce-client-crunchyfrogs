@@ -44,36 +44,61 @@ const ProductForm = (props) => {
         return response.secure_url
     }
 
+    // Checking product input validation
+    const validateCharFields = product => {
+        const regex = /[!@#$%^&*()]+/gm
+        let regArr = []
+        for (const key in product) {
+            if (key == 'title' || key == 'description') {
+                regex.test(product[key]) ? regArr.push(true) : regArr.push(false)
+            }
+        }
+        return regArr.includes(true) ? true : false
+    }
+
+    // Building product object from form
+    const getProduct = () => {
+        return {
+            title: title.current.value,
+            price: price.current.value,
+            description: description.current.value,
+            quantity: quantity.current.value,
+            location: location.current.value,
+            image_path: '',
+            product_type_id: productTypeId.product_type_id
+        }
+    }
+
     const onSubmitHandler = async e => {
+        function post(product) {
+            Api.postNewProduct(product)
+        }
+        let invalidAlert = 'Please do not include any of the following characters in the title or description "!@#$%^&*()".'
         e.preventDefault()
         if (formValid) {
             if (!imagePath.current.files[0]) {
-                const product = {
-                    title: title.current.value,
-                    price: price.current.value,
-                    description: description.current.value,
-                    quantity: quantity.current.value,
-                    location: location.current.value,
-                    image_path: '',
-                    product_type_id: productTypeId.product_type_id
+                const product = getProduct()
+                if (validateCharFields(product)) {
+                    alert(invalidAlert)    
+                } else {
+                    post(product)
+                    props.history.push("/products")
                 }
-                Api.postNewProduct(product)
-                props.history.push("/products")
             } else {
+                let product = getProduct()
+                if (validateCharFields(product)) {
+                    alert(invalidAlert)
+                } else {
                     uploadImage().then(res => {
-                        let image_path = res
-                        const product = {
-                            title: title.current.value,
-                            price: price.current.value,
-                            description: description.current.value,
-                            quantity: quantity.current.value,
-                            location: location.current.value,
-                            image_path: image_path,
-                            product_type_id: productTypeId.product_type_id
+                        product.image_path = res
+                        if (validateCharFields(product)) {
+                            alert(invalidAlert)    
+                        } else {
+                            post(product)
+                            props.history.push("/products")
                         }
-                        Api.postNewProduct(product)
-                        props.history.push("/products")
                     })
+                }
             }
         } else {
             e.preventDefault()
