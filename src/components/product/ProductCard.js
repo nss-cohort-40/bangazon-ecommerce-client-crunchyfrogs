@@ -41,7 +41,6 @@ const ProductCard = (props) => {
                     </tr>
                     <tr>
                         <td>
-                        {/* To be corrected later */}
                             <h3><a href={productLink}>{props.product.title}</a></h3>
                         </td>
                         <td>
