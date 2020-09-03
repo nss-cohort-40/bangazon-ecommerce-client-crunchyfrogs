@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
+import cloudinary_username from '../api_key'
 import Api from '../../api/module'
 
 const ProductForm = (props) => {
@@ -27,27 +28,57 @@ const ProductForm = (props) => {
         setFormValid(true)
     }
 
-    const onSubmitHandler = (e) => {
-
-        if (formValid) {
-            const product = {
-                title: title.current.value,
-                price: price.current.value,
-                description: description.current.value,
-                quantity: quantity.current.value,
-                location: location.current.value,
-                image_path: imagePath.current.value,
-                product_type_id: productTypeId.product_type_id
+    // Helper function for uploading an image to Cloudinary. Returns the image url.
+    const uploadImage = async () => {
+        let imageData = new FormData()
+        imageData.append('file', imagePath.current.files[0])
+        imageData.append('upload_preset', 'bangazon')
+        const res = await fetch(
+            `https://api.cloudinary.com/v1_1/${cloudinary_username}/image/upload`,
+            {
+                method: 'POST',
+                body: imageData
             }
-            Api.postNewProduct(product).then(e => {
+        )
+        const response = await res.json()
+        return response.secure_url
+    }
 
-            })
-            props.history.push("/products")
+    const onSubmitHandler = async e => {
+        e.preventDefault()
+        if (formValid) {
+            if (!imagePath.current.files[0]) {
+                const product = {
+                    title: title.current.value,
+                    price: price.current.value,
+                    description: description.current.value,
+                    quantity: quantity.current.value,
+                    location: location.current.value,
+                    image_path: '',
+                    product_type_id: productTypeId.product_type_id
+                }
+                Api.postNewProduct(product)
+                props.history.push("/products")
+            } else {
+                    uploadImage().then(res => {
+                        let image_path = res
+                        const product = {
+                            title: title.current.value,
+                            price: price.current.value,
+                            description: description.current.value,
+                            quantity: quantity.current.value,
+                            location: location.current.value,
+                            image_path: image_path,
+                            product_type_id: productTypeId.product_type_id
+                        }
+                        Api.postNewProduct(product)
+                        props.history.push("/products")
+                    })
+            }
         } else {
             e.preventDefault()
             alert("Please select product category!")
         }
-
     }
 
     useEffect(getProductTypes, [])
@@ -96,8 +127,8 @@ const ProductForm = (props) => {
                         required />
                 </fieldset>
                 <fieldset>
-                    <label htmlFor="imagePath"> Image path </label>
-                    <input ref={imagePath} type="text"
+                    <label htmlFor="imagePath">Product image </label>
+                    <input ref={imagePath} id='image' type="file"
                         name="imagePath"
                         className="form-control"
                         placeholder="imagePath"
