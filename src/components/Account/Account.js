@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import OrderHistory from './OrderHistory';
+import OrderHistory from '../Order/OrderHistory';
 import PaymentOptions from './PaymentOptions';
 import AddPayment from '../paymenttype/AddPaymentType';
 
@@ -9,6 +9,22 @@ const Account = props => {
     const handleEditBtn = e => {
         props.history.push('/account/edit')
     }
+
+    const getClosedOrders = e => {
+        return fetch("http://localhost:8000/orders?closed=true", {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+            .then(response => response.json())
+    }
+
+    useEffect(() => {
+        getClosedOrders()
+            .then(setOrders)
+    }, [props.customer])
 
     return (
         <div className="account_view">

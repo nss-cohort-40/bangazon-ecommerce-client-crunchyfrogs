@@ -46,7 +46,6 @@ const PaymentOptionCard = props => {
     const handlePayment = e => {
         const chosenPayment = props.payment.id
         getOpenOrder().then(openOrder => {
-                console.log('order', openOrder[0], 'payment', chosenPayment)
                 addPaymentToOrder(openOrder[0], chosenPayment)
             })
             .then(() => props.history.push('/confirmation'))
