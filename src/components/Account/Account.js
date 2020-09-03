@@ -11,7 +11,7 @@ const Account = props => {
     }
 
     const getClosedOrders = e => {
-        return fetch("http://localhost:8000/orders", {
+        return fetch("http://localhost:8000/orders?closed=true", {
             "method": "GET",
             "headers": {
                 "Accept": "application/json",
