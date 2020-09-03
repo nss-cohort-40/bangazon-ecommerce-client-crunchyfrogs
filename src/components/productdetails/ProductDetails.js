@@ -111,7 +111,11 @@ const ProductDetails = props => {
 
     return (
         <div>
+            {product.image_path ?
             <img src={product.image_path} style={{width:'300px'}}/>
+            :
+            <p></p>
+            }
             <p>Title: {product.title}</p>
             <p>Description: {product.description}</p>
             <p>Price per unit: {product.price}</p>

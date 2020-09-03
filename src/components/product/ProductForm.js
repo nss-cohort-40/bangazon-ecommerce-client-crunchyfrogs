@@ -47,20 +47,34 @@ const ProductForm = (props) => {
     const onSubmitHandler = async e => {
         e.preventDefault()
         if (formValid) {
-            uploadImage().then(res => {
-                let image_path = res
+            if (!imagePath.current.files[0]) {
                 const product = {
                     title: title.current.value,
                     price: price.current.value,
                     description: description.current.value,
                     quantity: quantity.current.value,
                     location: location.current.value,
-                    image_path: image_path,
+                    image_path: '',
                     product_type_id: productTypeId.product_type_id
                 }
                 Api.postNewProduct(product)
                 props.history.push("/products")
-            })
+            } else {
+                    uploadImage().then(res => {
+                        let image_path = res
+                        const product = {
+                            title: title.current.value,
+                            price: price.current.value,
+                            description: description.current.value,
+                            quantity: quantity.current.value,
+                            location: location.current.value,
+                            image_path: image_path,
+                            product_type_id: productTypeId.product_type_id
+                        }
+                        Api.postNewProduct(product)
+                        props.history.push("/products")
+                    })
+            }
         } else {
             e.preventDefault()
             alert("Please select product category!")
