@@ -23,7 +23,7 @@ const Home = props => {
 
     return (
         <div className="home_recent_products">
-            {recentProducts.map(product => <ProductCard product={product} customer={customer} />)}
+            {recentProducts.map(product => <ProductCard key={product.id} product={product} customer={customer} />)}
         </div>
     )
 }

@@ -5,7 +5,7 @@ const OrderHistory = props => {
     return (
         <div className="order_history_list">
             <h3>All Orders:</h3>
-            {props.orders.map(order => <OrderCard order={order} />)}
+            {props.orders.map(order => <OrderCard order={order} key={`order_card_${order.id}`} />)}
         </div>
     )
 }
