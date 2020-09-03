@@ -10,6 +10,22 @@ const Account = props => {
         props.history.push('/account/edit')
     }
 
+    const getClosedOrders = e => {
+        return fetch("http://localhost:8000/orders?paymenttype=false", {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+            .then(response => response.json())
+    }
+
+    useEffect(() => {
+        getClosedOrders()
+            .then(setOrders)
+    }, [props.customer])
+
     return (
         <div className="account_view">
             <div className="account_info">

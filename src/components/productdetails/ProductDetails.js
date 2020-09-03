@@ -19,7 +19,6 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(products => {
-            // console.log(products)
             setProduct(products)
             setNumProducts(products.quantity)
         })
@@ -51,7 +50,6 @@ const ProductDetails = props => {
         })
         .then(response => response.json())
         .then(order => {
-            console.log(order)
             if (order.length === 0) {
                 fetch(`http://localhost:8000/orders`, {
                     "method": "POST",

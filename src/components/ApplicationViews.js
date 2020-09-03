@@ -115,7 +115,6 @@ const ApplicationViews = props => {
             />
             <Route
             exact path="/product/:searchword" render={props => {
-                console.log("Application Views")
                 return <SearchResults searchword={props.match.params.searchword} {...props} />
             }}
             />
