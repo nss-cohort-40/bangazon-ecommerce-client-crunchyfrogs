@@ -1,29 +1,16 @@
 import React from 'react'
 import Api from '../../api/module'
 
+import DeleteButton from "./Buttons"
+
 
 const ProductCard = (props) => {
     
-    const handleDelete = () => {
-        Api.deleteProduct(props.product.id).then(props.getProducts)
-
-    }
-
-    const handleDeleteProductOrder = id => {
-        fetch(`http://localhost:8000/productorders/${id}`, {
-            "method": "DELETE",
-            "headers": {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
-            }
-        })
-        .then(() => props.history.push("/cart"))
-    }
+    let productId = props.product.id
 
 
     // Make sure the user is logged to click in the link and be redirected to Login
-    let productLink = `/products/${props.product.id}`
+    let productLink = `/products/${productId}`
 
     return (
         <>
@@ -64,9 +51,7 @@ const ProductCard = (props) => {
                 </tbody>
             </table>
             {props.customer ?
-                < button onClick={handleDelete}>
-                    Delete
-                </button>
+                    <DeleteButton productId={productId} {...props}>
                 : null}
 
             {props.product.productOrderId ?
