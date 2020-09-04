@@ -1,4 +1,4 @@
-# Bangazon React app
+# Bangazon React App
 
 Bangazon is a personal E-Commerce app where users can buy and sell products. Bangazon comes in two parts: a front end React app, and a backend Django REST API. Before starting the React client side portion of Bangazon, make sure to install and run the the Django REST API before running the front end React portion --> https://github.com/nss-cohort-40/bangazon-ecommerce-api-crunchy-frogs-1.
 
@@ -8,7 +8,7 @@ Bangazon is a personal E-Commerce app where users can buy and sell products. Ban
 - Django REST framework
 - Cloudinary API
 
-# Bangazon React App Project Setup
+# Bangazon React App Setup
 
 1. Clone down the repo and `cd` into it
 1. `npm install`
