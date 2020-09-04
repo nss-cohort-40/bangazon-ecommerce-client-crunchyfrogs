@@ -85,8 +85,15 @@ const ShoppingCart = props => {
         :
         <div>
             {products.map(product => <ProductCard key={product.productOrderId} product={product} {...props} />)}
-            <button onClick={togglePaymentOptions}>Complete Order</button>
-            <button onClick={cancelOrder}>Cancel Order</button>
+            {products.length === 0 
+            ? 
+            null 
+            :
+            <>
+                <button onClick={togglePaymentOptions}>Complete Order</button>
+                <button onClick={cancelOrder}>Cancel Order</button>
+            </>
+            }
         </div>
 
     )
