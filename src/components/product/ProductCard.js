@@ -34,7 +34,7 @@ const ProductCard = (props) => {
                     : null}
 
                 {props.product.productOrderId ?
-                    <DeleteFromOrderButton productId={productId} {...props} />
+                    <DeleteFromOrderButton productId={productId} {...props} getProducts={props.getProducts}/>
                     : null}
             </div>
         </div>

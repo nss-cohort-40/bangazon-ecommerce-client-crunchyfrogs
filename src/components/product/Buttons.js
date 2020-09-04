@@ -2,11 +2,11 @@ import React from 'react'
 import Api from '../../api/module'
 
 export const DeleteButton = props => {
-
     let productId=props.productId
+    let getProducts=props.getProducts
 
     const handleDelete = () => {
-        Api.deleteProduct(productId).then(props.getProducts)
+        Api.deleteProduct(productId).then(getProducts)
     }
 
     return <>
