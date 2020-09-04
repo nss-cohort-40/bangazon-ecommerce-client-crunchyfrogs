@@ -53,15 +53,26 @@ const ShoppingCart = props => {
     }
 
     const cancelOrder = e => {
-        fetch(`http://localhost:8000/orders`, {
-            "method": "DELETE",
+        fetch(`http://localhost:8000/orders?paymenttype=true`, {
+            "method": "GET",
             "headers": {
                 "Accept": "application/json",
                 "Content-Type": "application/json",
                 "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
             }
         })
-        .then(() => props.history.push("/cart"))
+        .then(response => response.json())
+        .then(openOrder => {
+                fetch(`http://localhost:8000/orders/${openOrder[0].id}`, {
+                    "method": "DELETE",
+                    "headers": {
+                        "Accept": "application/json",
+                        "Content-Type": "application/json",
+                        "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+                    }
+                })
+                .then(() => props.history.push("/cart"))
+            })
     }
 
     useEffect(() => {        
