@@ -8,6 +8,7 @@ const ProductForm = (props) => {
     const description = useRef()
     const quantity = useRef()
     const location = useRef()
+    const localDelivery = useRef()
     const imagePath = useRef()
     const [productTypeId, setProductTypeId] = useState({ product_type_id: "" })
     const [productTypes, setProductTypes] = useState([])
@@ -44,36 +45,73 @@ const ProductForm = (props) => {
         return response.secure_url
     }
 
+    // Checking product input validation
+    const validateCharFields = product => {
+        const regex = /[!@#$%^&*()]+/gm
+        let regArr = []
+        for (const key in product) {
+            if (key === 'title' || key === 'description') {
+                regex.test(product[key]) ? regArr.push(true) : regArr.push(false)
+            }
+        }
+        return regArr.includes(true) ? true : false
+    }
+
+    // Building product object from form
+    const getProduct = () => {
+        return {
+            title: title.current.value,
+            price: price.current.value,
+            description: description.current.value,
+            quantity: quantity.current.value,
+            location: location.current.value,
+            local_delivery: localDelivery.current.checked ? 1 : 0,
+            image_path: '',
+            product_type_id: productTypeId.product_type_id
+        }
+    }
+
+    const validatePriceField = price => {
+        return price > 10000 ? true : false
+    }
+
     const onSubmitHandler = async e => {
+        function post(product) {
+            Api.postNewProduct(product)
+        }
+        const invalidCharAlert = 'Please do not include any of the following characters in the title or description "!@#$%^&*()".'
+        const invalidPriceAlert = 'Product price cannot exceed $10,000.'
         e.preventDefault()
         if (formValid) {
             if (!imagePath.current.files[0]) {
-                const product = {
-                    title: title.current.value,
-                    price: price.current.value,
-                    description: description.current.value,
-                    quantity: quantity.current.value,
-                    location: location.current.value,
-                    image_path: '',
-                    product_type_id: productTypeId.product_type_id
+                const product = getProduct()
+                if (validateCharFields(product)) {
+                    alert(invalidCharAlert)    
+                } else if (validatePriceField(product.price)) {
+                    alert(invalidPriceAlert)
                 }
-                Api.postNewProduct(product)
-                props.history.push("/products")
+                else {
+                    post(product)
+                    props.history.push("/products")
+                }
             } else {
+                let product = getProduct()
+                if (validateCharFields(product)) {
+                    alert(invalidCharAlert)
+                } else {
                     uploadImage().then(res => {
-                        let image_path = res
-                        const product = {
-                            title: title.current.value,
-                            price: price.current.value,
-                            description: description.current.value,
-                            quantity: quantity.current.value,
-                            location: location.current.value,
-                            image_path: image_path,
-                            product_type_id: productTypeId.product_type_id
+                        product.image_path = res
+                        if (validateCharFields(product)) {
+                            alert(invalidCharAlert)    
+                        } else if (validatePriceField(product.price)) {
+                            alert(invalidPriceAlert)
+                        } 
+                        else {
+                            post(product)
+                            props.history.push("/products")
                         }
-                        Api.postNewProduct(product)
-                        props.history.push("/products")
                     })
+                }
             }
         } else {
             e.preventDefault()
@@ -122,6 +160,14 @@ const ProductForm = (props) => {
                 <fieldset>
                     <label htmlFor="location"> Location </label>
                     <input ref={location} type="text"
+                        name="location"
+                        className="form-control"
+                        required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="location">Local delivery available </label>
+                    <input ref={localDelivery} 
+                        type="checkbox"
                         name="location"
                         className="form-control"
                         required />

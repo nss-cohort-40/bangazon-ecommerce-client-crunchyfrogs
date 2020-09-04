@@ -40,7 +40,6 @@ const ShoppingCart = props => {
                 .then(response => response.json())
                 .then(response => setProducts(response.map(productorder => {
                     productorder.product.productOrderId = productorder.id
-                    console.log(productorder.product)
                     productorder.product.id = productorder.product.url.slice(30)
                     return productorder.product
                 })))
