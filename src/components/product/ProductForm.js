@@ -50,7 +50,7 @@ const ProductForm = (props) => {
         const regex = /[!@#$%^&*()]+/gm
         let regArr = []
         for (const key in product) {
-            if (key == 'title' || key == 'description') {
+            if (key === 'title' || key === 'description') {
                 regex.test(product[key]) ? regArr.push(true) : regArr.push(false)
             }
         }
@@ -71,31 +71,42 @@ const ProductForm = (props) => {
         }
     }
 
+    const validatePriceField = price => {
+        return price > 10000 ? true : false
+    }
+
     const onSubmitHandler = async e => {
         function post(product) {
             Api.postNewProduct(product)
         }
-        let invalidAlert = 'Please do not include any of the following characters in the title or description "!@#$%^&*()".'
+        const invalidCharAlert = 'Please do not include any of the following characters in the title or description "!@#$%^&*()".'
+        const invalidPriceAlert = 'Product price cannot exceed $10,000.'
         e.preventDefault()
         if (formValid) {
             if (!imagePath.current.files[0]) {
                 const product = getProduct()
                 if (validateCharFields(product)) {
-                    alert(invalidAlert)    
-                } else {
+                    alert(invalidCharAlert)    
+                } else if (validatePriceField(product.price)) {
+                    alert(invalidPriceAlert)
+                }
+                else {
                     post(product)
                     props.history.push("/products")
                 }
             } else {
                 let product = getProduct()
                 if (validateCharFields(product)) {
-                    alert(invalidAlert)
+                    alert(invalidCharAlert)
                 } else {
                     uploadImage().then(res => {
                         product.image_path = res
                         if (validateCharFields(product)) {
-                            alert(invalidAlert)    
-                        } else {
+                            alert(invalidCharAlert)    
+                        } else if (validatePriceField(product.price)) {
+                            alert(invalidPriceAlert)
+                        } 
+                        else {
                             post(product)
                             props.history.push("/products")
                         }
