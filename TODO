@@ -1,9 +1,1 @@
-Show order history on account view
-Order history is list of current user's closed orders
-    List of order numbers as hyperlinks to order details pages
-
-Order details card shows products and total price for the order
-
-If user is not logged in, redirect to login instead of account view
-
-ERROR: Account view not updating to show most recent order once placed (state of Orders not updating after checking out)
+Cancel Order
