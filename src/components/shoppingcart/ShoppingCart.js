@@ -71,7 +71,7 @@ const ShoppingCart = props => {
                         "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
                     }
                 })
-                .then(() => props.history.push("/cart"))
+                .then(() => getCart())
             })
     }
 
