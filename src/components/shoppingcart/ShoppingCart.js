@@ -52,6 +52,18 @@ const ShoppingCart = props => {
         setShowPaymentOptions(!showPaymentOptions)
     }
 
+    const cancelOrder = e => {
+        fetch(`http://localhost:8000/orders`, {
+            "method": "DELETE",
+            "headers": {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+        .then(() => props.history.push("/cart"))
+    }
+
     useEffect(() => {        
         getCart()
     }, [])
@@ -63,6 +75,7 @@ const ShoppingCart = props => {
         <div>
             {products.map(product => <ProductCard key={product.productOrderId} product={product} {...props} />)}
             <button onClick={togglePaymentOptions}>Complete Order</button>
+            <button onClick={cancelOrder}>Cancel Order</button>
         </div>
 
     )
