@@ -14,10 +14,12 @@ import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
 import Confirmation from './Confirmation/Confirmation';
 import OrderDetailsCard from './Order/OrderDetailsCard';
+import Api from '../api/module'
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
     const [paymentOptions, setPaymentOptions] = useState([])
+    const [ listProducts, setListProduct ] = useState([])
 
     const isLoged = props.isLoged
     const propStorage = props
@@ -51,6 +53,18 @@ const ApplicationViews = props => {
         }
     }
 
+    const getProducts = () => {
+        return fetch("http://localhost:8000/product?limit=20&sort=-id", {
+            "method": "GET",
+            "headers": {
+                "Accept": "application/json",
+                // "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
+            }
+        })
+            .then(response => response.json())
+            .then(data => setListProduct(data))
+    }
+
     useEffect(() => {
         getCustomer()
     }, [props.isCurrentUser])
@@ -59,11 +73,15 @@ const ApplicationViews = props => {
         getPayments()
     }, [customer])
 
+    useEffect(()=>{
+        getProducts()
+    }, [])
+
     return (
         <>
             <Route
                 exact path="/" render={props => {
-                    return <Home {...props} customer={customer}/>
+                    return <Home {...props} customer={customer} getProducts={getProducts} listProducts={listProducts}/>
                 }}
             />
             <Route
@@ -78,7 +96,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/products" render={props => {
-                    return <ProductList {...props} />
+                    return <ProductList getProducts={getProducts} customer={customer} listProducts={listProducts} {...props} />
                 }}
             />
             <Route

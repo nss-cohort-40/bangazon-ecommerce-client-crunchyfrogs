@@ -1,80 +1,45 @@
 import React from 'react'
 import Api from '../../api/module'
+import { Link } from 'react-router-dom'
+
+import { DeleteButton, DeleteFromOrderButton } from "./Buttons"
 
 
 const ProductCard = (props) => {
-    
-    const handleDelete = () => {
-        Api.deleteProduct(props.product.id).then(props.getProducts)
-
-    }
-
-    const handleDeleteProductOrder = id => {
-        fetch(`http://localhost:8000/productorders/${id}`, {
-            "method": "DELETE",
-            "headers": {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
-            }
-        })
-        .then(() => props.history.push("/cart"))
-    }
+    let token = localStorage.getItem("bangazon_token")
+    let productId = props.product.id
 
 
     // Make sure the user is logged to click in the link and be redirected to Login
-    let productLink = `/products/${props.product.id}`
+    let productLink = `/products/${productId}`
 
-    return (
-        <>
-            <table>
-                <tbody>
+    return (<>
+        <div className="card m-3" style={{ width: 18 + "rem"}}>
+            {props.product.image_path ?
+                <img src={props.product.image_path} className="card-img-top" style={{ width: '75px', height: '75px' }} alt={props.product.title} />
+                :
+                <img src={"https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Question-mark.jpg/900px-Question-mark.jpg"} className="card-img-top" style={{ width: '75px', height: '75px' }} alt={props.product.title} />
+            }
+            <div className="card-body">
+                {token ? <Link to={`/products/${productId}`}><h5 className="card-title">{props.product.title}</h5></Link> : <h5 className="card-title">{props.product.title}</h5>}
+                <p className="card-text">{props.product.description}</p>
+            </div>
+            <ul className="list-group list-group-flush">
+                <li className="list-group-item">Price: ${props.product.price}</li>
+                <li className="list-group-item">{props.product.quantity} unit(s) available </li>
+                <li className="list-group-item">Location: {props.product.location}{props.product.local_delivery ? " -- Local delivery available" : null}</li>
+            </ul>
+            <div className="card-body">
+                {props.customer ?
+                    <DeleteButton productId={productId} {...props} />
+                    : null}
 
-                    <tr>
-                        <td>
-                            {props.product.image_path ?
-                            <img src={props.product.image_path} style={{width:'75px', height:'75px'}}/>
-                            :
-                            <p></p>
-                            }
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h3><a href={productLink}>{props.product.title}</a></h3>
-                        </td>
-                        <td>
-                            <p>${props.product.price}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>{props.product.description}</p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <p>{props.product.quantity}</p>
-                        </td>
-                        <td>
-                            <p>{props.product.location}</p>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            {props.customer ?
-                < button onClick={handleDelete}>
-                    Delete
-                </button>
-                : null}
-
-            {props.product.productOrderId ?
-                <a href="/cart"><button onClick={() => handleDeleteProductOrder(props.product.productOrderId)}>
-                    Remove from order
-                </button></a>
-                : null}
-        </>
-    )
+                {props.product.productOrderId ?
+                    <DeleteFromOrderButton productId={productId} {...props} getProducts={props.getProducts}/>
+                    : null}
+            </div>
+        </div>
+    </>)
 }
 
 export default ProductCard
