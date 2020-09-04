@@ -14,6 +14,7 @@ import SearchResults from "./Search/SearchResults"
 import ShoppingCart from './shoppingcart/ShoppingCart';
 import Confirmation from './Confirmation/Confirmation';
 import OrderDetailsCard from './Order/OrderDetailsCard';
+import Api from '../api/module'
 
 const ApplicationViews = props => {
     const [customer, setCustomer] = useState({user: {}})
@@ -95,7 +96,7 @@ const ApplicationViews = props => {
             />
             <Route
                 exact path="/products" render={props => {
-                    return <ProductList listProducts={listProducts} {...props} />
+                    return <ProductList getProducts={getProducts} customer={customer} listProducts={listProducts} {...props} />
                 }}
             />
             <Route

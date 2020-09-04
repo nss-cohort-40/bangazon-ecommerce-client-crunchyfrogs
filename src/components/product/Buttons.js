@@ -18,6 +18,9 @@ export const DeleteButton = props => {
 
 
 export const DeleteFromOrderButton = props => {
+    let productId=props.productId
+    let getProducts=props.getProducts
+
     const handleDeleteProductOrder = id => {
     fetch(`http://localhost:8000/productorders/${id}`, {
         "method": "DELETE",
@@ -26,8 +29,11 @@ export const DeleteFromOrderButton = props => {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("bangazon_token")}`
         }
-    })
-    .then(() => props.history.push("/cart"))
+    }).then(data=>{
+        getProducts()
+    return data})
+    .then((data) => 
+    props.history.push("/cart"))
     }
 
     return <>                
