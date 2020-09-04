@@ -24,7 +24,9 @@ function App() {
         <Route render={props => (
                 <NavBar {...props} setIsCurrentUser={setIsCurrentUser} />
             )} />
+          <div className="container-fluid" >
           <ApplicationViews isLoged={isLoged} isCurrentUser={isCurrentUser} setIsCurrentUser={setIsCurrentUser} />
+          </div>
         </Router>
     </>
   );
