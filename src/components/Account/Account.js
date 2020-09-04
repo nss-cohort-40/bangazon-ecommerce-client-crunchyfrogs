@@ -33,7 +33,7 @@ const Account = props => {
                 <p>{props.customer.user.last_name}</p>
                 <p>{props.customer.address}</p>
                 <p>{props.customer.phone_number}</p>
-                <PaymentOptions paymentOptions={props.paymentOptions} {...props} />
+                <PaymentOptions account={true} paymentOptions={props.paymentOptions} {...props} />
                 <AddPayment getPayments={props.getPayments} />
                 <OrderHistory orders={orders} />
             </div>

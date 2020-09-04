@@ -8,6 +8,7 @@ const ProductForm = (props) => {
     const description = useRef()
     const quantity = useRef()
     const location = useRef()
+    const localDelivery = useRef()
     const imagePath = useRef()
     const [productTypeId, setProductTypeId] = useState({ product_type_id: "" })
     const [productTypes, setProductTypes] = useState([])
@@ -64,6 +65,7 @@ const ProductForm = (props) => {
             description: description.current.value,
             quantity: quantity.current.value,
             location: location.current.value,
+            local_delivery: localDelivery.current.checked ? 1 : 0,
             image_path: '',
             product_type_id: productTypeId.product_type_id
         }
@@ -147,6 +149,14 @@ const ProductForm = (props) => {
                 <fieldset>
                     <label htmlFor="location"> Location </label>
                     <input ref={location} type="text"
+                        name="location"
+                        className="form-control"
+                        required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="location">Local delivery available </label>
+                    <input ref={localDelivery} 
+                        type="checkbox"
                         name="location"
                         className="form-control"
                         required />
